@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import html2canvas from "html2canvas";
 import axios from "axios";
+import DummyShow from "./DummyShow";
 
 const YouTubePlayer = () => {
 
@@ -74,6 +75,7 @@ const YouTubePlayer = () => {
             />
             <p>CurrentCount : {currentCount}</p>
             <img src={imageUrl} width='560' height="360"/>
+            <div><DummyShow/></div>
         </div>
     )
 

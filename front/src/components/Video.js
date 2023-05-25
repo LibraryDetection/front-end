@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import './MainPage.css';
+import YouTubePlayer from "./YouTubePlayer";
 
 function Video() {
     const [url, setUrl] = useState("https://www.youtube.com/embed/VVFtWKCHkL0?autoplay=1&mute=1")
@@ -7,7 +8,7 @@ function Video() {
     return (
             <div className='video'>
                 <div className="video-streaming">
-                    <iframe width="560" height="315" src={url} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <YouTubePlayer/>
                 </div>
                 <div className='url'>
                     <p className='url-text'>Input URL</p>

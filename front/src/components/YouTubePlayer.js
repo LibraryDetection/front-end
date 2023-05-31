@@ -3,11 +3,12 @@ import html2canvas from "html2canvas";
 import axios from "axios";
 import DummyShow from "./DummyShow";
 
-const YouTubePlayer = () => {
+function YouTubePlayer(props) {
 
     const [isPlaying, setIsPlaying] = useState(true);
     const [currentCount, setCurrentCount] = useState(0); //확인용
     const [imageUrl, setImageUrl] = useState('');
+    const {reservations} = props
 
     const handlePause = () => {
         setIsPlaying(false);
@@ -73,9 +74,9 @@ const YouTubePlayer = () => {
                    onPause={handlePause}
                    onPlay={handlePlay}
             />
-            <p>CurrentCount : {currentCount}</p>
+            {/* <p>CurrentCount : {currentCount}</p>
             <img src={imageUrl} width='560' height="360"/>
-            <div><DummyShow/></div>
+            <div><DummyShow reservations={reservations}/></div> */}
         </div>
     )
 

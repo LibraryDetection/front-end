@@ -3,12 +3,11 @@ import MainPage from './components/MainPage';
 import Header from './components/header';
 import React from 'react';
 import { useState, useEffect } from 'react';
-import ReservationList from './components/ReservationList';
+// import ReservationList from './components/ReservationList';
 
 function App() {
 
   const [reservations, setReservations] = useState([]);
-
   // GET 예시 (ReservationList.js 참고)
   useEffect(() => {
     fetch('http://127.0.0.1:8000/reservations/', {

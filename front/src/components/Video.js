@@ -2,13 +2,14 @@ import React, {useState} from 'react';
 import './MainPage.css';
 import YouTubePlayer from "./YouTubePlayer";
 
-function Video() {
+function Video(props) {
     const [url, setUrl] = useState("https://www.youtube.com/embed/VVFtWKCHkL0?autoplay=1&mute=1")
+    const {reservations} = props
 
     return (
             <div className='video'>
                 <div className="video-streaming">
-                    <YouTubePlayer/>
+                    <YouTubePlayer reservations={reservations}/>
                 </div>
                 <div className='url'>
                     <p className='url-text'>Input URL</p>

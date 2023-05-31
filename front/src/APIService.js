@@ -10,4 +10,13 @@ export default class APIService {
           }).then(resp => resp.json())
           .catch(error => console.log(error))
     }
+
+    static DeleteReservation(reservations_id) {
+      return fetch(`http://127.0.0.1:8000/reservations/${reservations_id}`, {
+          'method' : 'DELETE',
+          headers : {
+            'Content-Type' : 'application/json',
+          }
+        })
+    }
 }

@@ -11,11 +11,74 @@ function MainPage(props) {
   const [stuNum, setStuNum] = useState(''); //학번
   const [seatNum, setSeatNum] = useState(''); //좌석번호
   const {reservations} = props
+  const [newReservations, setNewReservations] = useState([]);
   //reservations 렌더링될 때
   useEffect(() => {
     setStuNum(props.reservations.stuNum)
     setSeatNum(props.reservations.seatNum)
   }, [props.reservations])
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+        getStreamingData();
+    }, 1000);
+
+    return () => {
+        clearInterval(interval);
+    };
+  }, [props.reservations]);
+
+  const getStreamingData = async () => {
+    fetch('http://localhost:8000/reservations/', {
+        'method': 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+        .then(resp => resp.json())
+        .then(resp => setNewReservations(resp))
+        .catch(error => console.log(error))
+  } 
+
+  useEffect(() => {
+    newReservations && newReservations.map(reservation => {
+      if (reservation.seatStatus === "EMPTY" && reservation.count >= 3) {
+          const seatIndex = parseInt(reservation.seatNum) - 1;
+          setClickedSeats(prevSeats => {
+            const newClickedSeats = [...prevSeats];
+            newClickedSeats[seatIndex] = false;
+            return newClickedSeats;
+          });
+
+          APIService.DeleteReservation(reservation.id)
+              .then(resp => {
+                  console.log(resp);
+              })
+
+      } else if (reservation.seatStatus === "PRIVATE" && reservation.count >= 5) {
+          const seatIndex = parseInt(reservation.seatNum) - 1;
+          setClickedSeats(prevSeats => {
+            const newClickedSeats = [...prevSeats];
+            newClickedSeats[seatIndex] = false;
+            return newClickedSeats;
+          });
+
+          APIService.DeleteReservation(reservation.id)
+              .then(resp => {
+                  console.log(resp);
+              })
+      } else {}
+  })
+
+  })
+
+  // const reservationItems = reservations.map(reservation => (
+  //   <div key={reservation.id}>
+  //     <p>seatNum: {reservation.seatNum}</p>
+  //     <p>seatStatus: {reservation.seatStatus}</p>
+  //     <p>count: {reservation.count}</p>
+  //   </div>
+  // ));
 
   const onClickHandler = e => {
     if (
@@ -54,7 +117,7 @@ function MainPage(props) {
             const newClickedSeats = [...prevSeats];
             newClickedSeats[seatIndex] = false;
             return newClickedSeats;
-          });         
+          });
           APIService.DeleteReservation(reservation.id)
             .then(resp => {
               console.log(resp);
@@ -65,21 +128,6 @@ function MainPage(props) {
 
 
   }
-
-  // useEffect(() => {
-  //   // 데이터베이스에서 이미 예약된 seatNum 값을 가져옵니다.
-  //   const reservedSeatNums = props.reservations.map((reservation) => reservation.seatNum);
-  //   // 가져온 seatNum 값을 가진 버튼의 클래스명을 "seat sold"로 변경합니다.
-  //   const updatedClickedSeats = clickedSeats.map((clicked, index) => {
-  //     const seatNumber = index + 1;
-  //     if (reservedSeatNums.includes(seatNumber.toString())) {
-  //       return true;
-  //     } else {
-  //       return clicked;
-  //     }
-  //   });
-  //   setClickedSeats(updatedClickedSeats);
-  // }, [props.reservations]);
 
   useEffect(() => {
     // 클라이언트의 clickedSeats에서 해당 예약 정보 제거
@@ -146,7 +194,7 @@ function MainPage(props) {
             <p className="text">{message}</p>
             <button className='selection' onClick={onClickSelection}>select</button>
             <button className='selection' onClick={onClickDelete}>delete</button>
-          </div>          
+          </div>
 
         </div>
       </div>           

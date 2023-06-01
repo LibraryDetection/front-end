@@ -1,19 +1,24 @@
 import React, {useState} from 'react';
 import './MainPage.css';
-import YouTubePlayer from "./YouTubePlayer";
+import VideoPlayer from "./VideoPlayer";
 
 function Video(props) {
-    const [url, setUrl] = useState("https://www.youtube.com/embed/VVFtWKCHkL0?autoplay=1&mute=1")
+    const [ip, setIp] = useState("");
     const {reservations} = props
+
+    const handleClick = () => {
+        setIp(document.getElementById('ip-input').value);
+    };
 
     return (
             <div className='video'>
                 <div className="video-streaming">
-                    <YouTubePlayer reservations={reservations}/>
+                    <VideoPlayer ip={ip}/>
                 </div>
                 <div className='url'>
                     <p className='url-text'>Input URL</p>
-                    <input className='url-input' type='url' onChange={(e)=>setUrl(e.target.value)}></input>
+                    <input id='ip-input' className='url-input' type='url'></input>
+                    <button className="url-button" onClick={handleClick}>선택</button>
                 </div>
             </div>
     )

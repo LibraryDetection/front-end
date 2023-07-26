@@ -21,3 +21,8 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+/public/test.mp4
+/public/test1.mp4
+/public/testBack.mp4
+/public/testFront.mp4

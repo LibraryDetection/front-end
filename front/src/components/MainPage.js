@@ -7,7 +7,7 @@ import Video from './Video';
 function MainPage(props) {
 
   const [message, setMessage] = useState("Please select the seat");
-  const [clickedSeats, setClickedSeats] = useState(Array(12).fill(false));
+  const [clickedSeats, setClickedSeats] = useState(Array(24).fill(false));
   const [stuNum, setStuNum] = useState(''); //학번
   const [seatNum, setSeatNum] = useState(''); //좌석번호
   const {reservations} = props
@@ -142,7 +142,10 @@ function MainPage(props) {
   return (      
     <div className="all">
       <div className='main'>
-        <Video reservations={reservations}></Video>
+        <div className="library-selection">
+          <Video reservations={reservations} direction={"back"}></Video>
+          <Video reservations={reservations} direction={"front"}></Video>
+        </div>
         <div className="library-selection">
             
           <div className="library-container">
@@ -179,7 +182,7 @@ function MainPage(props) {
             ))}
             </div>
             <div className="row">
-            {clickedSeats.slice(6).map((clicked, index) => (
+            {clickedSeats.slice(6,12).map((clicked, index) => (
                     <button
                       className={clicked ? "seat sold" : "seat"}
                       value={index + 7}
@@ -187,6 +190,30 @@ function MainPage(props) {
                       key={index + 7}
                     >
                       {index + 7}
+                    </button>
+            ))}
+            </div>
+            <div className="row">
+            {clickedSeats.slice(12,18).map((clicked, index) => (
+                    <button
+                      className={clicked ? "seat sold" : "seat"}
+                      value={index + 13}
+                      onClick={onClickHandler}
+                      key={index + 13}
+                    >
+                      {index + 13}
+                    </button>
+            ))}
+            </div>
+            <div className="row">
+            {clickedSeats.slice(18,24).map((clicked, index) => (
+                    <button
+                      className={clicked ? "seat sold" : "seat"}
+                      value={index + 19}
+                      onClick={onClickHandler}
+                      key={index + 19}
+                    >
+                      {index + 19}
                     </button>
             ))}
             </div>

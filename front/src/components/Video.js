@@ -13,7 +13,7 @@ function Video(props) {
     return (
             <div className='video'>
                 <div className="video-streaming">
-                    <VideoPlayer ip={ip}/>
+                    <VideoPlayer ip={ip} direction={props.direction}/>
                 </div>
                 <div className='url'>
                     <p className='url-text'>Input URL</p>
